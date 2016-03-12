@@ -1,0 +1,27 @@
+{
+  "name": "health-track-backend",
+  "version": "1.0.0",
+  "description": "Backend app for Health Track",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saundie184/health-track-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saundie184/health-track-backend/issues"
+  },
+  "homepage": "https://github.com/saundie184/health-track-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "knex": "^0.10.0",
+    "pg": "^4.5.1"
+  }
+}
