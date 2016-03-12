@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res) {
   res.send('Hello index!');
@@ -20,20 +21,46 @@ router.post('/signup', function(req, res) {
   //   password: 'password6'
   // };
   var user = req.body;
-  console.log(user);
-  knex('users').insert(user).returning('id').then(function(data, err){
-    console.log(data);
-    res.send('Success');
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(user.password, salt, function(err, hash) {
+      // Store hash in your password DB.
+      knex('users').insert({
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: hash
+      }).returning('id').then(function(data, err) {
+        // console.log(data);
+        if (data) {
+          res.send('Success');
+        } else {
+          res.send("Error" + err);
+        }
+      });
+    });
   });
 });
 
-// function hashPassword(){
-//
-// }
 
 
 router.post('/signin', function(req, res) {
-  res.send('This is the sign-in page');
+  var user = req.body;
+  knex('users').first().where({
+    email: user.email
+  }).then(function(data, err) {
+    if (data.length === 0) {
+      res.send("Failure");
+    } else {
+      console.log(data);
+      bcrypt.compare(user.password, data.password, function(err, match) {
+        if (match) {
+          console.log('success!!');
+        } else {
+          console.log('Email and password do not match');
+        }
+      });
+    }
+  });
 });
 
 module.exports = router;
