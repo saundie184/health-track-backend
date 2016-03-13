@@ -63,4 +63,8 @@ router.post('/signin', function(req, res) {
   });
 });
 
+router.post('/signout', function(req, res){
+  //delete jwts?
+})
+
 module.exports = router;
