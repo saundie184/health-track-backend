@@ -13,7 +13,9 @@ router.get('/', function(req, res) {
 
 
 // POST route for creating a new family
-// router.post('/:id')
+router.post('/:id', function(req, res){
+
+});
 
 //GET route for viewing a family
 router.get('/:id', function(req, res) {
