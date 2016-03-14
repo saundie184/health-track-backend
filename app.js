@@ -10,22 +10,29 @@ var bodyParser = require('body-parser');
 // var jwt = require('express-jwt');
 // var jsonWebToken = require('jsonwebtoken');
 
-// var cors = require('cors');
+var cors = require('cors');
+
 
 //Routes
 var routes = require('./routes/index');
-// var dreams = require('./routes/dreams');
+var profile = require('./routes/profile');
+var family = require('./routes/family');
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', routes);
+//Enable cors before routes
+var corsOptions = {
+  origin: '*'
+};
+app.use(cors(corsOptions));
 
-// app.get('/', function (req, res) {
-//   res.send('Hello World!');
-// });
+app.use('/', routes);
+app.use('/profile', profile);
+app.use('/family', family);
+
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

@@ -6,11 +6,9 @@ var knex = require('../db/knex');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 
-router.get('/', function(req, res) {
-  res.send('Hello index!');
-
+router.get('/', function(req, res){
+  res.send('Health Track backend');
 });
-
 // ----- Users -----
 
 router.post('/signup', function(req, res) {
