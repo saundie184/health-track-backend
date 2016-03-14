@@ -8,13 +8,20 @@ TABLE NAME users
 - sex
 - blood_type
 
-CREATE TABLE users (
+<!-- CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   firstname TEXT,
   lastname TEXT,
   email TEXT,
   password TEXT
   );
+
+  CREATE TABLE relations (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    name TEXT,
+    relationship TEXT
+    );
 
   INSERT INTO users VALUES (1,'john', 'doe', 'john@email.com', 'password');
   INSERT INTO users VALUES (2,'jane', 'doe', 'jane@email.com', 'password2');
@@ -23,7 +30,7 @@ CREATE TABLE users (
 
   ALTER TABLE users ADD dob DATE;
   ALTER TABLE users ADD sex TEXT;
-  ALTER TABLE users ADD sex TEXT;
+  ALTER TABLE users ADD sex TEXT; -->
 
 
 
@@ -37,7 +44,7 @@ TABLE NAME height_weight
 -- Health Events --
 TABLE NAME surgeries
 - user_id
-- type ---->(surgeries, illnesses, procedures, injuries, other_events)
+- type ---->(surgery, illness, procedure, injury, other_event)
 - name
 - description
 - date
@@ -46,7 +53,7 @@ TABLE NAME surgeries
 -- Health Categories --
 TABLE NAME health_categories
 - user_id
-- type ---->(food allergies, drug_allergies, other_categories)
+- type ---->(food allergy, drug_allergy, other_category)
 - name
 - description
 - date

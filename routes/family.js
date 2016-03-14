@@ -16,7 +16,21 @@ router.get('/', function(req, res) {
 // router.post('/:id')
 
 //GET route for viewing a family
-// router.get(/:id)
+router.get('/:id', function(req, res) {
+  var user_id = req.params.id;
+  //TODO get family relations data
+  knex('relations')
+    .select('*')
+    .where({user_id: user_id})
+    .then(function(data, err) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.json(data);
+      }
+    });
+
+});
 
 
 module.exports = router;

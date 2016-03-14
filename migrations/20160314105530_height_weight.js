@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('height_weight', function(table) {
       table.increments('id').primary();
+      table.integer('user_id');
       table.decimal('height');
       table.decimal('weight');
       table.timestamp('date');

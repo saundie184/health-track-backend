@@ -18,8 +18,11 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-        host     : '127.0.0.1',
-        database : 'health_track'
-      }
+      host: '127.0.0.1',
+      database: 'health_track'
+    },
+    seeds: {
+      directory: './seeds/dev'
+    }
   }
 };
