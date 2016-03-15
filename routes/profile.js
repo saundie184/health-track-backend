@@ -26,6 +26,7 @@ router.get('/', function(req, res) {
 
 // POST route for creating a new profile
 router.post('/:id', function(req, res) {
+  
   // var id = req.params.id;
   // console.log(req.body);
   knex('users').where({id: req.params.id}).update({

@@ -5,6 +5,10 @@ var router = express.Router();
 var knex = require('../db/knex');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var jsonWebToken = require('jsonwebtoken');
+
+//TODO use .env for this
+var secret = 'mySecret';
 
 router.get('/', function(req, res){
   res.send('Health Track backend');
@@ -52,6 +56,13 @@ router.post('/signin', function(req, res) {
       console.log(data);
       bcrypt.compare(user.password, data.password, function(err, match) {
         if (match) {
+          var user = data;
+            delete user.password;
+            var expires = {
+              expiresIn : '10h'
+            };
+          var token = jsonWebToken.sign(user, secret, expires);
+          res.json({token: token});
           console.log('success!!');
         } else {
           console.log('Email and password do not match');
@@ -61,8 +72,5 @@ router.post('/signin', function(req, res) {
   });
 });
 
-router.post('/signout', function(req, res){
-  //delete jwts?
-})
 
 module.exports = router;
