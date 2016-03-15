@@ -26,12 +26,11 @@ router.get('/:id', function(req, res) {
     .where({user_id: user_id})
     .then(function(data, err) {
       if (err) {
-        res.send(err)
+        res.send(err);
       } else {
         res.json(data);
       }
     });
-
 });
 
 
