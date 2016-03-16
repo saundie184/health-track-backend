@@ -53,7 +53,7 @@ router.post('/signin', function(req, res) {
     if (data.length === 0) {
       res.send("Failure");
     } else {
-      console.log(data);
+      // console.log(data);
       bcrypt.compare(user.password, data.password, function(err, match) {
         if (match) {
           var user = data;

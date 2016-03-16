@@ -55,6 +55,30 @@ router.post('/:id/hw', function(req, res) {
     });
 });
 
+// POST route for creating health_events
+router.post('/:id/events', function(req, res) {
+  // console.log(req.body);
+  var eventsArray = req.body;
+  knex('health_events')
+    .insert(eventsArray).then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success');
+      }
+    });
+});
+
+// POST route for creating health_categories
+router.post('/:id/categories', function(req, res) {
+  // console.log(req.body);
+  var categoriesArray = req.body;
+  knex('health_categories')
+    .insert(categoriesArray).then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success');
+      }
+    });
+});
+
 
 
 //GET route for viewing a profile
