@@ -47,7 +47,8 @@ router.post('/:id/hw', function(req, res) {
     .insert({
       user_id: req.params.id,
       height: req.body.height,
-      weight: req.body.weight
+      weight: req.body.weight,
+      date: req.body.date
     }).then(function(data, err) {
       if (!checkError(res, err)) {
         res.send('Success');
