@@ -95,5 +95,18 @@ router.get('/:id', function(req, res) {
 
 });
 
+//GET route for viewing a height_weight
+router.get('/:id/hw', function(req, res) {
+  var user_id = req.params.id;
+  knex('height_weight').select('*').where({
+    user_id: user_id
+  }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.json(data);
+    }
+  });
+
+});
+
 
 module.exports = router;
