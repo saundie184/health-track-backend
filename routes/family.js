@@ -52,5 +52,33 @@ router.get('/:id', function(req, res) {
     });
 });
 
+// GET route for viewing a mother's side
+router.get('/:id/mothers', function(req, res) {
+  var user_id = req.params.id;
+  //TODO get family relations data
+  knex('relations')
+    .select('*')
+    .where('user_id', user_id).andWhere('relationship', 'like', 'mothers%')
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+});
+
+// GET route for viewing a father's side
+router.get('/:id/fathers', function(req, res) {
+  var user_id = req.params.id;
+  //TODO get family relations data
+  knex('relations')
+    .select('*')
+    .where('user_id', user_id).andWhere('relationship', 'like', 'fathers%')
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+});
+
 
 module.exports = router;
