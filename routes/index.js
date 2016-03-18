@@ -62,8 +62,8 @@ router.post('/signin', function(req, res) {
               expiresIn : '10h'
             };
           var token = jsonWebToken.sign(user, secret, expires);
-          res.json({token: token});
-          console.log('success!!');
+          res.json({token: token, email: user.email});
+          console.log('Success!');
         } else {
           console.log('Email and password do not match');
         }

@@ -108,5 +108,30 @@ router.get('/:id/hw', function(req, res) {
 
 });
 
+//GET route for viewing a health_events
+router.get('/:id/events', function(req, res) {
+  var user_id = req.params.id;
+  knex('health_events').select('*').where({
+    user_id: user_id
+  }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.json(data);
+    }
+  });
+
+});
+//GET route for viewing a health_categories
+router.get('/:id/categories', function(req, res) {
+  var user_id = req.params.id;
+  knex('health_categories').select('*').where({
+    user_id: user_id
+  }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.json(data);
+    }
+  });
+
+});
+
 
 module.exports = router;
