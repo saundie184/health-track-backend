@@ -15,20 +15,38 @@ function checkError(res, err) {
   }
   return fail;
 }
-//
-// router.get('/', function(req, res) {
-//   res.send('Hello family page!');
-//
-// });
 
 
 // POST route for creating a new family
 router.post('/:id', function(req, res) {
   var user_id = req.params.id;
+  console.log(req.body);
   knex('relations').insert({
     user_id: user_id,
     name: req.body.name,
-    relationship: req.body.relationship
+    relationship: req.body.relationship,
+    dob: req.body.dob,
+    dod: req.body.dod,
+    sex: req.body.sex,
+    blood_type: req.body.blood_type
+  }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.send('Success!');
+    }
+  });
+});
+
+// POST route for creating a new health event for family member
+router.post('/:id/events', function(req, res) {
+  var user_id = req.params.id;
+  console.log(req.body);
+  knex('relations_health_events').insert({
+    user_id: user_id,
+    relation_id: req.body.relation_id,
+    name: req.body.name,
+    type: req.body.type,
+    description: req.body.description,
+    date: req.body.date
   }).then(function(data, err) {
     if (!checkError(res, err)) {
       res.send('Success!');
@@ -55,8 +73,6 @@ router.get('/:id', function(req, res) {
       }
     });
 });
-
-//GET route for viewing a immediate family
 
 
 // GET route for viewing a mother's side
