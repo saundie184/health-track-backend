@@ -36,7 +36,7 @@ router.post('/:id', function(req, res) {
   });
 });
 
-//GET route for viewing a family
+//GET route for viewing a immediate family
 router.get('/:id', function(req, res) {
   var user_id = req.params.id;
   //TODO get family relations data
@@ -45,12 +45,19 @@ router.get('/:id', function(req, res) {
     .where({
       user_id: user_id
     })
+    .andWhere('relationship', 'mother')
+    .orWhere('relationship', 'father')
+    .orWhere('relationship', 'sister')
+    .orWhere('relationship', 'brother')
     .then(function(data, err) {
       if (!checkError(res, err)) {
         res.json(data);
       }
     });
 });
+
+//GET route for viewing a immediate family
+
 
 // GET route for viewing a mother's side
 router.get('/:id/mothers', function(req, res) {
