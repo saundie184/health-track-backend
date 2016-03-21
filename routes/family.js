@@ -36,6 +36,28 @@ router.post('/:id', function(req, res) {
   });
 });
 
+// POST route for updating family member profile
+router.post('/:id/edit/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  console.log(req.body);
+  knex('relations')
+  .where({id: relation_id})
+  .andWhere({user_id: user_id})
+  .update({
+    name: req.body.name,
+    relationship: req.body.relationship,
+    dob: req.body.dob,
+    dod: req.body.dod,
+    sex: req.body.sex,
+    blood_type: req.body.blood_type
+  }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.send('Success!');
+    }
+  });
+});
+
 // POST route for creating a new health event for family member
 router.post('/:id/events', function(req, res) {
   var user_id = req.params.id;
