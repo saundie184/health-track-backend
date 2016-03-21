@@ -40,28 +40,32 @@ router.post('/:id', function(req, res) {
 router.post('/:id/edit/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations')
-  .where({id: relation_id})
-  .andWhere({user_id: user_id})
-  .update({
-    name: req.body.name,
-    relationship: req.body.relationship,
-    dob: req.body.dob,
-    dod: req.body.dod,
-    sex: req.body.sex,
-    blood_type: req.body.blood_type
-  }).then(function(data, err) {
-    if (!checkError(res, err)) {
-      res.send('Success!');
-    }
-  });
+    .where({
+      id: relation_id
+    })
+    .andWhere({
+      user_id: user_id
+    })
+    .update({
+      name: req.body.name,
+      relationship: req.body.relationship,
+      dob: req.body.dob,
+      dod: req.body.dod,
+      sex: req.body.sex,
+      blood_type: req.body.blood_type
+    }).then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success!');
+      }
+    });
 });
 
 // POST route for creating a new health event for family member
 router.post('/:id/events', function(req, res) {
   var user_id = req.params.id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations_health_events').insert({
     user_id: user_id,
     relation_id: req.body.relation_id,
@@ -70,6 +74,29 @@ router.post('/:id/events', function(req, res) {
     description: req.body.description,
     date: req.body.date
   }).then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.send('Success!');
+    }
+  });
+});
+// POST route for creating height and weight for family member
+router.post('/:id/hw/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  console.log(req.body);
+  knex('relations_height_weight').update({
+      height: req.body.height,
+      weight: req.body.weight,
+      date: req.body.date
+    })
+    .where({
+      user_id: user_id
+    })
+    .andWhere({
+      relation_id: relation_id,
+    })
+
+  .then(function(data, err) {
     if (!checkError(res, err)) {
       res.send('Success!');
     }
@@ -150,6 +177,23 @@ router.get('/:id/relation/:relation_id', function(req, res) {
       user_id: user_id
     }).andWhere({
       id: id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
+
+//GET route for viewing height and weight of relation
+router.get('/:id/hw/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  knex('relations_height_weight').select('*').where({
+      user_id: user_id
+    }).andWhere({
+      relation_id: relation_id
     })
     .then(function(data, err) {
       if (!checkError(res, err)) {
