@@ -50,25 +50,31 @@ router.post('/signin', function(req, res) {
   knex('users').first().where({
     email: user.email
   }).then(function(data, err) {
-    if (data.length === 0) {
-      res.send("Failure");
+    if(data){
+      if (data.length === 0) {
+        res.send("Failure");
+      } else {
+        // console.log(data);
+        bcrypt.compare(user.password, data.password, function(err, match) {
+          if (match) {
+            var user = data;
+              delete user.password;
+              var expires = {
+                expiresIn : '10h'
+              };
+            var token = jsonWebToken.sign(user, secret, expires);
+            res.json({token: token, email: user.email, id: user.id});
+            console.log('Success!');
+          } else {
+            res.send('error');
+            console.log('Email and password do not match');
+          }
+        });
+      }
     } else {
-      // console.log(data);
-      bcrypt.compare(user.password, data.password, function(err, match) {
-        if (match) {
-          var user = data;
-            delete user.password;
-            var expires = {
-              expiresIn : '10h'
-            };
-          var token = jsonWebToken.sign(user, secret, expires);
-          res.json({token: token, email: user.email, id: user.id});
-          console.log('Success!');
-        } else {
-          console.log('Email and password do not match');
-        }
-      });
+      res.send('error');
     }
+
   });
 });
 
