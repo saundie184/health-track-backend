@@ -54,7 +54,7 @@ router.post('/:id/events', function(req, res) {
   });
 });
 
-//GET route for viewing a immediate family
+//GET route for viewing immediate family
 router.get('/:id', function(req, res) {
   var user_id = req.params.id;
   //TODO get family relations data
@@ -103,5 +103,38 @@ router.get('/:id/fathers', function(req, res) {
     });
 });
 
+//GET route for viewing relations health eventsprofile
+router.get('/:id/profile/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  knex('relations_health_events').select('*').where({
+      user_id: user_id
+    }).andWhere({
+      relation_id: relation_id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
+
+//GET route for viewing relationship to relation
+router.get('/:id/relation/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var id = req.params.relation_id;
+  knex('relations').select('*').where({
+      user_id: user_id
+    }).andWhere({
+      id: id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
 
 module.exports = router;
