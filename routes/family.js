@@ -63,27 +63,50 @@ router.post('/:id/edit/:relation_id', function(req, res) {
 });
 
 // POST route for creating a new health event for family member
-router.post('/:id/events', function(req, res) {
+router.post('/:id/events/:relation_id', function(req, res) {
   var user_id = req.params.id;
-  // console.log(req.body);
+  var relation_id = req.params.relation_id;
+  console.log(req.body);
   knex('relations_health_events').insert({
     user_id: user_id,
-    relation_id: req.body.relation_id,
+    relation_id: relation_id,
     name: req.body.name,
     type: req.body.type,
     description: req.body.description,
     date: req.body.date
-  }).then(function(data, err) {
+  })
+  .then(function(data, err) {
     if (!checkError(res, err)) {
       res.send('Success!');
     }
   });
 });
+
+// POST route for creating new health categories for family member
+router.post('/:id/categories/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  console.log(req.body);
+  knex('relations_health_categories').insert({
+    user_id: user_id,
+    relation_id: relation_id,
+    name: req.body.name,
+    type: req.body.type,
+    description: req.body.description,
+    date: req.body.date
+  })
+  .then(function(data, err) {
+    if (!checkError(res, err)) {
+      res.send('Success!');
+    }
+  });
+});
+
 // POST route for creating height and weight for family member
 router.post('/:id/hw/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations_height_weight').update({
       height: req.body.height,
       weight: req.body.weight,
@@ -156,6 +179,7 @@ router.get('/:id/fathers', function(req, res) {
 router.get('/:id/profile/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
+  console.log(res.body);
   knex('relations_health_events').select('*').where({
       user_id: user_id
     }).andWhere({
