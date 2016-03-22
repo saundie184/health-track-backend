@@ -20,7 +20,7 @@ function checkError(res, err) {
 // POST route for creating a new family
 router.post('/:id', function(req, res) {
   var user_id = req.params.id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations').insert({
     user_id: user_id,
     name: req.body.name,
@@ -66,7 +66,7 @@ router.post('/:id/edit/:relation_id', function(req, res) {
 router.post('/:id/events/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations_health_events').insert({
     user_id: user_id,
     relation_id: relation_id,
@@ -86,7 +86,7 @@ router.post('/:id/events/:relation_id', function(req, res) {
 router.post('/:id/categories/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(req.body);
+  // console.log(req.body);
   knex('relations_health_categories').insert({
     user_id: user_id,
     relation_id: relation_id,
