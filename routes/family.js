@@ -193,6 +193,24 @@ router.get('/:id/profile/:relation_id', function(req, res) {
 
 });
 
+//GET route for viewing relations health categories
+router.get('/:id/categories/:relation_id', function(req, res) {
+  var user_id = req.params.id;
+  var relation_id = req.params.relation_id;
+  console.log(res.body);
+  knex('relations_health_categories').select('*').where({
+      user_id: user_id
+    }).andWhere({
+      relation_id: relation_id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
+
 //GET route for viewing relationship to relation
 router.get('/:id/relation/:relation_id', function(req, res) {
   var user_id = req.params.id;
