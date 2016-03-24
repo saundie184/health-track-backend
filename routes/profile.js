@@ -110,24 +110,58 @@ router.get('/:id/hw', function(req, res) {
 
 //GET route for viewing a health_events
 router.get('/:id/events', function(req, res) {
+  var start;
+  var end;
+  if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
+    start = parseInt(req.query.start);
+    end = parseInt(req.query.end);
+  } else {
+    start = 1800;
+    end = new Date().getFullYear();
+  }
+
   var user_id = req.params.id;
   knex('health_events').select('*').where({
     user_id: user_id
   }).then(function(data, err) {
+    var obj = [];
     if (!checkError(res, err)) {
-      res.json(data);
+      for (var i = 0; i < data.length; i++) {
+        var year = data[i].date.getFullYear();
+        if (year >= start && year <= end) {
+          // console.log(data[i]);
+          obj.push(data[i]);
+        }
+      }
+      res.json(obj);
     }
   });
 
 });
 //GET route for viewing a health_categories
 router.get('/:id/categories', function(req, res) {
+  var start;
+  var end;
+  if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
+    start = parseInt(req.query.start);
+    end = parseInt(req.query.end);
+  } else {
+    start = 1800;
+    end = new Date().getFullYear();
+  }
   var user_id = req.params.id;
   knex('health_categories').select('*').where({
     user_id: user_id
   }).then(function(data, err) {
+    var obj = [];
     if (!checkError(res, err)) {
-      res.json(data);
+      for (var i = 0; i < data.length; i++) {
+        var year = data[i].date.getFullYear();
+        if (year >= start && year <= end) {
+          obj.push(data[i]);
+        }
+      }
+      res.json(obj);
     }
   });
 
