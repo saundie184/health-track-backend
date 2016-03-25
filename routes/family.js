@@ -179,7 +179,7 @@ router.get('/:id/fathers', function(req, res) {
 router.get('/:id/profile/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(res.body);
+  // console.log(res.body);
   knex('relations_health_events').select('*').where({
       user_id: user_id
     }).andWhere({
@@ -197,7 +197,7 @@ router.get('/:id/profile/:relation_id', function(req, res) {
 router.get('/:id/categories/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
-  console.log(res.body);
+  // console.log(res.body);
   knex('relations_health_categories').select('*').where({
       user_id: user_id
     }).andWhere({
@@ -236,6 +236,37 @@ router.get('/:id/hw/:relation_id', function(req, res) {
       user_id: user_id
     }).andWhere({
       relation_id: relation_id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
+
+//GET route for viewing all health_events for a family
+router.get('/:id/events/', function(req, res) {
+  var user_id = req.params.id;
+  // console.log(res.body);
+  knex('relations_health_events').select('name', 'id').where({
+      user_id: user_id
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.json(data);
+      }
+    });
+
+});
+
+
+//GET route for viewing all health_categories for a family
+router.get('/:id/categories/', function(req, res) {
+  var user_id = req.params.id;
+  // console.log(res.body);
+  knex('relations_health_categories').select('name', 'id').where({
+      user_id: user_id
     })
     .then(function(data, err) {
       if (!checkError(res, err)) {

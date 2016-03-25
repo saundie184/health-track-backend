@@ -119,7 +119,6 @@ router.get('/:id/events', function(req, res) {
     start = 1800;
     end = new Date().getFullYear();
   }
-
   var user_id = req.params.id;
   knex('health_events').select('*').where({
     user_id: user_id
@@ -133,6 +132,7 @@ router.get('/:id/events', function(req, res) {
           obj.push(data[i]);
         }
       }
+      // console.log(obj);
       res.json(obj);
     }
   });
