@@ -112,6 +112,7 @@ router.get('/:id/hw', function(req, res) {
 router.get('/:id/events', function(req, res) {
   var start;
   var end;
+  console.log(req.body);
   if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
     start = parseInt(req.query.start);
     end = parseInt(req.query.end);
@@ -123,6 +124,7 @@ router.get('/:id/events', function(req, res) {
   knex('health_events').select('*').where({
     user_id: user_id
   }).then(function(data, err) {
+    // console.log(data);
     var obj = [];
     if (!checkError(res, err)) {
       for (var i = 0; i < data.length; i++) {
