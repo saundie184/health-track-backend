@@ -68,18 +68,18 @@ router.post('/:id/events/:relation_id', function(req, res) {
   var relation_id = req.params.relation_id;
   // console.log(req.body);
   knex('relations_health_events').insert({
-    user_id: user_id,
-    relation_id: relation_id,
-    name: req.body.name,
-    type: req.body.type,
-    description: req.body.description,
-    date: req.body.date
-  })
-  .then(function(data, err) {
-    if (!checkError(res, err)) {
-      res.send('Success!');
-    }
-  });
+      user_id: user_id,
+      relation_id: relation_id,
+      name: req.body.name,
+      type: req.body.type,
+      description: req.body.description,
+      date: req.body.date
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success!');
+      }
+    });
 });
 
 // POST route for creating new health categories for family member
@@ -88,18 +88,18 @@ router.post('/:id/categories/:relation_id', function(req, res) {
   var relation_id = req.params.relation_id;
   // console.log(req.body);
   knex('relations_health_categories').insert({
-    user_id: user_id,
-    relation_id: relation_id,
-    name: req.body.name,
-    type: req.body.type,
-    description: req.body.description,
-    date: req.body.date
-  })
-  .then(function(data, err) {
-    if (!checkError(res, err)) {
-      res.send('Success!');
-    }
-  });
+      user_id: user_id,
+      relation_id: relation_id,
+      name: req.body.name,
+      type: req.body.type,
+      description: req.body.description,
+      date: req.body.date
+    })
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success!');
+      }
+    });
 });
 
 // POST route for creating height and weight for family member
@@ -108,17 +108,17 @@ router.post('/:id/hw/:relation_id', function(req, res) {
   var relation_id = req.params.relation_id;
   // console.log(req.body);
   knex('relations_height_weight').insert({
-    user_id: user_id,
-    relation_id: relation_id,
+      user_id: user_id,
+      relation_id: relation_id,
       height: req.body.height,
       weight: req.body.weight,
       date: req.body.date
     })
-  .then(function(data, err) {
-    if (!checkError(res, err)) {
-      res.send('Success!');
-    }
-  });
+    .then(function(data, err) {
+      if (!checkError(res, err)) {
+        res.send('Success!');
+      }
+    });
 });
 
 //GET route for viewing immediate family
@@ -172,6 +172,15 @@ router.get('/:id/fathers', function(req, res) {
 
 //GET route for viewing healthevents for single family member
 router.get('/:id/profile/:relation_id', function(req, res) {
+  var start;
+  var end;
+  if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
+    start = parseInt(req.query.start);
+    end = parseInt(req.query.end);
+  } else {
+    start = 1800;
+    end = new Date().getFullYear();
+  }
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
   knex('relations_health_events').select('*').where({
@@ -180,8 +189,31 @@ router.get('/:id/profile/:relation_id', function(req, res) {
       relation_id: relation_id
     })
     .then(function(data, err) {
+      // console.log('in the then')
+      // console.log(data);
+      var obj = [];
       if (!checkError(res, err)) {
-        res.json(data);
+        for (var i = 0; i < data.length; i++) {
+          // console.log(typeof data[i].date);
+          if(typeof data[i].date === 'string'){
+            // console.log('string');
+            var year = data[i].date.slice(0,4);
+            // console.log(year);
+            if (year >= start && year <= end) {
+              // console.log(data[i]);
+              obj.push(data[i]);
+            }
+          } else {
+            var yr = data[i].date.getFullYear();
+            if (yr >= start && yr <= end) {
+              // console.log(data[i]);
+              obj.push(data[i]);
+            }
+          }
+
+        }
+        // console.log(obj);
+        res.json(obj);
       }
     });
 
@@ -189,6 +221,15 @@ router.get('/:id/profile/:relation_id', function(req, res) {
 
 //GET route for viewing health categories for single family member
 router.get('/:id/categories/:relation_id', function(req, res) {
+  var start;
+  var end;
+  if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
+    start = parseInt(req.query.start);
+    end = parseInt(req.query.end);
+  } else {
+    start = 1800;
+    end = new Date().getFullYear();
+  }
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
   knex('relations_health_categories').select('*').where({
@@ -197,8 +238,27 @@ router.get('/:id/categories/:relation_id', function(req, res) {
       relation_id: relation_id
     })
     .then(function(data, err) {
+      var obj = [];
       if (!checkError(res, err)) {
-        res.json(data);
+        for (var i = 0; i < data.length; i++) {
+          console.log(typeof data[i].date);
+          if(typeof data[i].date === 'string'){
+            // console.log('string');
+            var year = data[i].date.slice(0,4);
+            console.log(year);
+            if (year >= start && year <= end) {
+              // console.log(data[i]);
+              obj.push(data[i]);
+            }
+          } else {
+            var yr = data[i].date.getFullYear();
+            if (yr >= start && yr <= end) {
+              // console.log(data[i]);
+              obj.push(data[i]);
+            }
+          }
+        }
+        res.json(obj);
       }
     });
 

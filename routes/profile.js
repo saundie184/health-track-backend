@@ -24,12 +24,13 @@ function checkError(res, err) {
 
 // POST route for creating a new profile
 router.post('/:id', function(req, res) {
-
   // var id = req.params.id;
   // console.log(req.body);
   knex('users').where({
     id: req.params.id
   }).update({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     dob: req.body.dob,
     sex: req.body.sex,
     blood_type: req.body.blood_type
@@ -112,7 +113,7 @@ router.get('/:id/hw', function(req, res) {
 router.get('/:id/events', function(req, res) {
   var start;
   var end;
-  console.log(req.body);
+  // console.log(req.body);
   if (typeof req.query.start !== 'undefined' && typeof req.query.end !== 'undefined') {
     start = parseInt(req.query.start);
     end = parseInt(req.query.end);
