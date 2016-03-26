@@ -107,18 +107,13 @@ router.post('/:id/hw/:relation_id', function(req, res) {
   var user_id = req.params.id;
   var relation_id = req.params.relation_id;
   // console.log(req.body);
-  knex('relations_height_weight').update({
+  knex('relations_height_weight').insert({
+    user_id: user_id,
+    relation_id: relation_id,
       height: req.body.height,
       weight: req.body.weight,
       date: req.body.date
     })
-    .where({
-      user_id: user_id
-    })
-    .andWhere({
-      relation_id: relation_id,
-    })
-
   .then(function(data, err) {
     if (!checkError(res, err)) {
       res.send('Success!');
