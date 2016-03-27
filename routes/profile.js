@@ -37,7 +37,6 @@ router.post('/:id', function(req, res) {
 
 // POST route for creating height_weight
 router.post('/:id/hw', function(req, res) {
-  // console.log(req.body);
   knex('height_weight')
     .insert({
       user_id: req.params.id,
