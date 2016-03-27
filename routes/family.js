@@ -241,11 +241,11 @@ router.get('/:id/categories/:relation_id', function(req, res) {
       var obj = [];
       if (!checkError(res, err)) {
         for (var i = 0; i < data.length; i++) {
-          console.log(typeof data[i].date);
+          // console.log(typeof data[i].date);
           if(typeof data[i].date === 'string'){
             // console.log('string');
             var year = data[i].date.slice(0,4);
-            console.log(year);
+            // console.log(year);
             if (year >= start && year <= end) {
               // console.log(data[i]);
               obj.push(data[i]);

@@ -16,12 +16,6 @@ router.get('/', function(req, res){
 // ----- Users -----
 
 router.post('/signup', function(req, res) {
-  // var testUser = {
-  //   firstname: 'joe',
-  //   lastname: 'jones',
-  //   email: 'joe@email.com',
-  //   password: 'password6'
-  // };
   var user = req.body;
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(user.password, salt, function(err, hash) {

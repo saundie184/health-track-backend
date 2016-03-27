@@ -16,12 +16,6 @@ function checkError(res, err) {
   return fail;
 }
 
-// router.get('/', function(req, res) {
-//   res.send('Hello profile!');
-//
-// });
-
-
 // POST route for creating a new profile
 router.post('/:id', function(req, res) {
   // var id = req.params.id;
