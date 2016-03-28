@@ -135,6 +135,7 @@ router.get('/:id', function(req, res) {
     .orWhere('relationship', 'brother')
     .then(function(data, err) {
       if (!checkError(res, err)) {
+        console.log(data);
         res.json(data);
       }
     });
