@@ -123,8 +123,8 @@ router.post('/:id/hw/:relation_id', function(req, res) {
 
 //GET route for viewing immediate family
 router.get('/:id', function(req, res) {
-  var user_id = req.params.id;
-  console.log(user_id);
+  var user_id = parseInt(req.params.id);
+  console.log(typeof user_id);
   //TODO get family relations data
   knex('relations')
     .select('*')
