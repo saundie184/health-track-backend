@@ -69,6 +69,6 @@ if (app.get('env') === 'development') {
 // });
 
 
-app.listen(process.ENV.PORT || 3000, function () {
+app.listen(3000, function () {
   console.log('Listening on port 3000...');
 });
