@@ -11,7 +11,7 @@ var jwt = require('express-jwt');
 var jsonWebToken = require('jsonwebtoken');
 
 var cors = require('cors');
-app.use(cors());
+
 
 //Routes
 var routes = require('./routes/index');
@@ -19,6 +19,7 @@ var profile = require('./routes/profile');
 var family = require('./routes/family');
 
 var app = express();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
