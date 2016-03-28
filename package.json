@@ -4,8 +4,8 @@
   "description": "Backend app for Health Track",
   "main": "app.js",
   "scripts": {
-      "start": "node ./bin/www"
-    },
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saundie184/health-track-backend.git"
