@@ -4,11 +4,12 @@
   "description": "Backend app for Health Track",
   "main": "app.js",
   "engines": {
-    "node": "5.4.1"
+    "node": "5.9.1",
+    "npm": "3.7.3"
   },
   "scripts": {
-      "start": "node app.js"
-    },
+    "start": "node app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saundie184/health-track-backend.git"
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/saundie184/health-track-backend#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.1",
     "cors": "^2.7.1",
