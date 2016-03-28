@@ -21,7 +21,9 @@ var family = require('./routes/family');
 var app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 //Enable cors before routes
 var corsOptions = {
@@ -31,7 +33,9 @@ app.use(cors(corsOptions));
 
 //TODO use .env for this
 var secret = 'mySecret';
-var config = {secret: secret};
+var config = {
+  secret: secret
+};
 
 app.use('/', routes);
 app.use('/profile', jwt(config), profile);
@@ -67,3 +71,9 @@ if (app.get('env') === 'development') {
 //     error: {}
 //   });
 // });
+
+var port = process.env.PORT || 3000;
+
+app.listen(port, function() {
+  console.log('Listening on port ' + port);
+});

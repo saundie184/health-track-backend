@@ -41,6 +41,7 @@ router.post('/signup', function(req, res) {
 
 router.post('/signin', function(req, res) {
   var user = req.body;
+  console.log(req.body);
   knex('users').first().where({
     email: user.email
   }).then(function(data, err) {
