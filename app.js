@@ -19,18 +19,18 @@ var profile = require('./routes/profile');
 var family = require('./routes/family');
 
 var app = express();
-app.use(cors());
+//Enable cors before routes
+var corsOptions = {
+  origin: 'https://health-track-api.firebaseapp.com'
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-//Enable cors before routes
-// var corsOptions = {
-//   origin: '*'
-// };
-// app.use(cors(corsOptions));
+
 
 //TODO use .env for this
 var secret = 'mySecret';
