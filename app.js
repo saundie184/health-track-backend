@@ -11,7 +11,7 @@ var jwt = require('express-jwt');
 var jsonWebToken = require('jsonwebtoken');
 
 var cors = require('cors');
-
+app.use(cors());
 
 //Routes
 var routes = require('./routes/index');
@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Enable cors before routes
-var corsOptions = {
-  origin: '*'
-};
-app.use(cors(corsOptions));
+// var corsOptions = {
+//   origin: '*'
+// };
+// app.use(cors(corsOptions));
 
 //TODO use .env for this
 var secret = 'mySecret';
