@@ -132,28 +132,38 @@ router.get('/:id', function(req, res) {
     .where('user_id', user_id)
     .andWhere('relationship', 'mother')
     .then(function(data, err) {
+      if(data[0] !== undefined){
       arry.push(data[0]);
-      // console.log(data);
+      }
+      // console.log(data[0]);
       knex('relations')
         .select('*')
         .where('user_id', user_id)
         .andWhere('relationship', 'father')
         .then(function(data, err) {
+          // console.log(data[0]);
+          if(data[0] !== undefined){
           arry.push(data[0]);
+          }
+
           knex('relations')
             .select('*')
             .where('user_id', user_id)
             .andWhere('relationship', 'sister')
             .then(function(data, err) {
+              if(data[0] !== undefined){
               arry.push(data[0]);
+              }
               knex('relations')
                 .select('*')
                 .where('user_id', user_id)
                 .andWhere('relationship', 'brother')
                 .then(function(data, err) {
+                  if(data[0] !== undefined){
                   arry.push(data[0]);
+                  }
                   if (!checkError(res, err)) {
-                    console.log(data);
+                    // console.log(data);
                     res.json(arry);
                   }
                 });
