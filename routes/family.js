@@ -124,23 +124,43 @@ router.post('/:id/hw/:relation_id', function(req, res) {
 //GET route for viewing immediate family
 router.get('/:id', function(req, res) {
   var user_id = req.params.id;
-  console.log(user_id);
+  var arry = [];
+  // console.log(user_id);
   //TODO get family relations data
   knex('relations')
     .select('*')
     .where('user_id', user_id)
     .andWhere('relationship', 'mother')
-    .orWhere('relationship', 'father')
-    .orWhere('relationship', 'sister')
-    .orWhere('relationship', 'brother')
     .then(function(data, err) {
-      if (!checkError(res, err)) {
-        console.log(data);
-        res.json(data);
-      }
+      arry.push(data[0]);
+      // console.log(data);
+      knex('relations')
+        .select('*')
+        .where('user_id', user_id)
+        .andWhere('relationship', 'father')
+        .then(function(data, err) {
+          arry.push(data[0]);
+          knex('relations')
+            .select('*')
+            .where('user_id', user_id)
+            .andWhere('relationship', 'sister')
+            .then(function(data, err) {
+              arry.push(data[0]);
+              knex('relations')
+                .select('*')
+                .where('user_id', user_id)
+                .andWhere('relationship', 'brother')
+                .then(function(data, err) {
+                  arry.push(data[0]);
+                  if (!checkError(res, err)) {
+                    console.log(data);
+                    res.json(arry);
+                  }
+                });
+            });
+        });
     });
 });
-
 
 // GET route for viewing a mother's side
 router.get('/:id/mothers', function(req, res) {
@@ -195,9 +215,9 @@ router.get('/:id/profile/:relation_id', function(req, res) {
       if (!checkError(res, err)) {
         for (var i = 0; i < data.length; i++) {
           // console.log(typeof data[i].date);
-          if(typeof data[i].date === 'string'){
+          if (typeof data[i].date === 'string') {
             // console.log('string');
-            var year = data[i].date.slice(0,4);
+            var year = data[i].date.slice(0, 4);
             // console.log(year);
             if (year >= start && year <= end) {
               // console.log(data[i]);
@@ -242,9 +262,9 @@ router.get('/:id/categories/:relation_id', function(req, res) {
       if (!checkError(res, err)) {
         for (var i = 0; i < data.length; i++) {
           // console.log(typeof data[i].date);
-          if(typeof data[i].date === 'string'){
+          if (typeof data[i].date === 'string') {
             // console.log('string');
-            var year = data[i].date.slice(0,4);
+            var year = data[i].date.slice(0, 4);
             // console.log(year);
             if (year >= start && year <= end) {
               // console.log(data[i]);
