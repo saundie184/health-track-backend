@@ -34,6 +34,41 @@ TABLE NAME users
 
 
 
+exports.up = function(knex, Promise) {
+  return Promise.all([
+    knex.schema.createTable('users', function(table) {
+      table.increments('id').primary();
+      table.text('firstname');
+      table.text('lastname');
+      table.text('email');
+      table.text('password');
+      table.text('dob');
+      table.text('sex');
+      table.text('blood_type');
+    })
+  ]);
+};
+
+exports.down = function(knex, Promise) {
+  return Promise.all([
+    knex.dropTable('users')
+  ]);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Vitals --
 TABLE NAME height_weight
 - user_id
