@@ -22,8 +22,8 @@ var app = express();
 //Enable cors before routes
 var corsOptions = {
   // origin: 'https://health-track-api.firebaseapp.com'
-  origin: 'https://healthtrack.online'
-  // origin: 'http://localhost:8080'
+  // origin: 'https://healthtrack.online'
+  origin: '*'
 };
 app.use(cors(corsOptions));
 
