@@ -130,7 +130,7 @@ router.get('/:id', function(req, res) {
   knex('relations')
     .select('*')
     .where('user_id', user_id)
-    .andWhere('relationship', 'mother')
+    .andWhere('relationship', 'Mother')
     .then(function(data, err) {
       if(data[0] !== undefined){
       arry.push(data[0]);
@@ -139,7 +139,7 @@ router.get('/:id', function(req, res) {
       knex('relations')
         .select('*')
         .where('user_id', user_id)
-        .andWhere('relationship', 'father')
+        .andWhere('relationship', 'Father')
         .then(function(data, err) {
           // console.log(data[0]);
           if(data[0] !== undefined){
@@ -149,7 +149,7 @@ router.get('/:id', function(req, res) {
           knex('relations')
             .select('*')
             .where('user_id', user_id)
-            .andWhere('relationship', 'sister')
+            .andWhere('relationship', 'Sister')
             .then(function(data, err) {
               if(data[0] !== undefined){
               arry.push(data[0]);
@@ -157,7 +157,7 @@ router.get('/:id', function(req, res) {
               knex('relations')
                 .select('*')
                 .where('user_id', user_id)
-                .andWhere('relationship', 'brother')
+                .andWhere('relationship', 'Brother')
                 .then(function(data, err) {
                   if(data[0] !== undefined){
                   arry.push(data[0]);
@@ -192,7 +192,7 @@ router.get('/:id/fathers', function(req, res) {
   //TODO get family relations data
   knex('relations')
     .select('*')
-    .where('user_id', user_id).andWhere('relationship', 'like', 'fathers%')
+    .where('user_id', user_id).andWhere('relationship', 'like', 'Father\'s%')
     .then(function(data, err) {
       if (!checkError(res, err)) {
         res.json(data);
