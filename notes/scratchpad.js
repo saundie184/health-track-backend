@@ -1,15 +1,27 @@
 'use strict';
-var arr = ["hello", "Tonsils removed", "Pneumonia", "Broken foot", "Lasik eye surgery", "Gluten"];
 
-function stringify(array) {
-  var string = '';
-  for(var i = 0; i < array.length; i++){
-    string += (array[i]+ ', ');
-  }
-  return string;
+function checkIfNullValues(obj){
+
 }
 
-console.log(stringify(arr));
+checkIfNullValues(myObj);
+
+var myObj ={
+  name: 'Sally',
+  date: 'null'
+}
+
+// var arr = ["hello", "Tonsils removed", "Pneumonia", "Broken foot", "Lasik eye surgery", "Gluten"];
+//
+// function stringify(array) {
+//   var string = '';
+//   for(var i = 0; i < array.length; i++){
+//     string += (array[i]+ ', ');
+//   }
+//   return string;
+// }
+//
+// console.log(stringify(arr));
 
 
 
