@@ -178,7 +178,7 @@ router.get('/:id/mothers', function(req, res) {
   //TODO get family relations data
   knex('relations')
     .select('*')
-    .where('user_id', user_id).andWhere('relationship', 'like', 'mothers%')
+    .where('user_id', user_id).andWhere('relationship', 'like', 'Mother\'s%')
     .then(function(data, err) {
       if (!checkError(res, err)) {
         res.json(data);
